@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="hv_scan_product assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/hv_scan_product/static/src/js/kiosk_mode.js"></script>
+            <script type="text/javascript" src="/hv_scan_product/static/src/js/result_kiosk_mode.js"></script>
+            <script type="text/javascript" src="/hv_scan_product/static/src/js/barcode-reader.jquery.js"></script>
+            <script type="text/javascript" src="/hv_scan_product/static/src/js/DecoderWorker.js"></script>
+            <script type="text/javascript" src="/hv_scan_product/static/src/js/exif.js"></script>
+            <script type="text/javascript" src="/hv_scan_product/static/src/js/BarcodeReader.js"></script>
+
+            <!-- <script type="text/javascript" src="/hv_scan_product/static/src/js/time_widget.js"></script> -->
+            <link rel="stylesheet" type="text/scss" href="/hv_scan_product/static/src/scss/hv_scan_product.scss"/>
+        </xpath>
+    </template>
+
+    <record id="hv_product_scan_action" model="ir.actions.client"> 
+        <field name="name">Product Scan</field>
+        <field name="tag">hv_scan_product_kiosk_mode</field>
+        <field name="target">fullscreen</field>
+    </record>
+    <record id="hv_product_scan_result_action" model="ir.actions.client"> 
+        <field name="name">Scan Result</field>
+        <field name="tag">hv_scan_product_result_kiosk_mode</field>
+        <field name="target">fullscreen</field>
+    </record>
+    <menuitem id="menu_hv_product_scan" name="Product Scan" action="hv_product_scan_action" web_icon="hv_scan_product,static/description/logo.png" active="True"/>
+
+    <record id="res_config_settings_view_form_custom" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.base.setup.custom</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invite_users_setting']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box" id="notify_error">
+                        <div class="o_setting_right_pane">
+                            <label for="notify_error" string="Error Message"/>
+                            <field name='notify_error' class="oe_inline"/>
+                        </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
